@@ -10,3 +10,9 @@ Then
 - http://127.0.0.1/google Lookup "google" in the SQLite then resolve to an IP that hopefully still works and proxy_pass you there
 - http://127.0.0.1/test-container Fallback example, key doesnt exist so we fallback to using the existing defined docker hosts/containers
 
+### See
+- http://nginx.org/en/docs/http/ngx_http_core_module.html#resolver
+
+### Note
+
+Use at own risk, may or may not scale, may or may not rename your dog and set your house on fire.
