@@ -1,6 +1,10 @@
 # Experimental DNS server to act as a `proxy_pass` `resolver` for nginx to bounce your requests to depending on SQLite lookup data
 
-Experimental Python DNS server that lets you use SQLite as a nginx proxy_pass `resolver` that performs an SQLite query to decide where to proxy_pass the request to.
+Experimental Python based DNS server that lets you use SQLite as a nginx proxy_pass `resolver` that performs an SQLite query to decide where to proxy_pass the request to.
+
+( Asks a SQLite DB what the real IP for a lookup should be and returns that so `proxy_pass` can use it )
+
+Based on https://github.com/paulc/dnslib/blob/master/dnslib/fixedresolver.py
 
 
 `docker-compose up`
