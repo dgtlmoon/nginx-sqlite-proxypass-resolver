@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  nginx:
+    hostname: nginx
+    image: nginx:1
+    networks:
+      - test_net
+    ports:
+      - 80:80
+    volumes:
+      - ./example/nginx.conf/:/etc/nginx/conf.d/example.conf
+
+  sqlite-dns-resolver:
+    build: sqlite-dns-resolver
+    hostname: sqlite-dns-resolver
+    environment:
+      SQL_QUERY: SELECT dest_addr FROM lookup WHERE name is NOT NULL AND name LIKE ?
+      SQLITE_DB: /data.db
+    volumes:
+      - ./sqlite-dns-resolver:/app
+      - ./example/test-data.db:/data.db
+    command: /usr/local/bin/python3 /app/server.py
+    networks:
+      - test_net
+
+  # Fallback one, a request for http://127.0.0.1/test-container should fallback and resolve here
+  test-container:
+    image: aikain/simplehttpserver:0.1
+    hostname: test-container
+    ports:
+      - "8080:80"
+    volumes:
+      - ./example/test.html:/var/www/test-container
+    networks:
+      - test_net
+
+networks:
+  test_net:
+
